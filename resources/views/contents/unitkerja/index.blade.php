@@ -30,7 +30,7 @@
                         <th>No</th>
                         <th>Nama</th>
                         <th>Email</th>
-                        <th>Username</th>
+                        <th>Unit Kerja</th>
                         <th>Action</th>
                     </tr>
                 </thead>
