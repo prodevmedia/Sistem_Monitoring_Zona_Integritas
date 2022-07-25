@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Auth;
 use App\Models\FileUpload;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -10,6 +10,7 @@ class UploadFileController extends Controller
 {
     //
     public function index(){
+        $area = Auth::guard('unitkerja')->user()->unit_kerja_id;
         $file = FileUpload::with('point')->get();
         // dd($file);
         return view('contents.uploads.index',compact('file'));

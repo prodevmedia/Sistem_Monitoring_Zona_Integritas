@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Mail\SendAccountEmail;
 use App\Models\MasterUnitKerja;
 use App\Models\UnitKerja;
+use App\Models\RencanaKerja;
+use App\Models\AreaPerubahan;
 use App\Models\User;
+use Auth;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,9 +20,35 @@ use Illuminate\Validation\ValidationException;
 class UnitKerjaController extends Controller
 {
     //
+    // public function xxx()
+    // {
+    //     $data['invenborrows']= Order::order_get_data_id_all();
+    //     $data['invbordels']= Order_detail::orderdetail_get_data_id_all();
+    //     $data['addresses']= Address::get_data_id_all();
+    //     $data['cities']= CitiesModel::get_data_id_all();
+    //     $data['provinces']= ProvincesModel::get_data_id_all();
+    //     $user_id=Auth::user()->user_id;
+    //     $databrg= Barang::barang_get_by_user_id($user_id);
+        
+        
+        
+    //     return view('s_pinjam.pinjam_add')->with('data',$data)->with('products',$databrg);
+    // }
+    public function kerjaUnit_show()
+    {
+        // $unit_kerja_id=Auth::guard('unitkerja')->unit_kerja_id;
+        $area = Auth::guard('unitkerja')->user()->unit_kerja_id;
+        $unit = RencanaKerja:: get_by_unit($area);        
+        $kerja = AreaPerubahan::all();
+        
+        return view('contents.unitkerja.kerja')->with('unit',$unit)->with('kerja',$kerja);
+        // return view('contents.unitkerja.kerja',compact('unit','kerja',));
+        // return view('contents.unitkerja.kerja')->with('unit',$unit)->with('areaperubahan',$kerja);
+    }
     public function index(){     
         $user = UnitKerja::with('masterunitkerja')->get();        
         $masterunitkerja = MasterUnitKerja::all();
+
         return view('contents.unitkerja.index',compact('user','masterunitkerja'));
     }
 
@@ -70,7 +99,7 @@ class UnitKerjaController extends Controller
     public function update(Request $request,$id){
         $user = UnitKerja::find($id);        
         if ($request->input('password')) {
-            $user->password = $request->input('password');
+            $user->password = Hash::make($request->input('password')) ;
         }
         $user->name = $request->input('name');
         $user->email = $request->input('email');

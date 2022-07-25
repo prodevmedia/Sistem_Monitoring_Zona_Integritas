@@ -58,7 +58,8 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama User</th>
+                  <th>Nama Unit</th>
+                  <th>Email Pengirim</th>
                   <th>File Upload</th>
                   <th>Tahun</th>
                   <th>Waktu Upload</th>
@@ -70,6 +71,7 @@
                         <tr>
                           <td>{{$key+1}}</td>
                           <td>{{$item->user->name}}</td>
+                          <td>{{$item->user->email}}</td>
                           <td>
                             {!!wordwrap($item->name_file,30,"<br>\n", false)!!}                             
                           </td>

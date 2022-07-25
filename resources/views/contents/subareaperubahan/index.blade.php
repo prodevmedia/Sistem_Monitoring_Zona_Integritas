@@ -1,6 +1,6 @@
 @extends('master')
 @section('subareaperubahanactive','active')
-@section('title',"Sub Area Perubahan")
+@section('title',"Area Perubahan")
 @section('content')
 @if (Session::has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">

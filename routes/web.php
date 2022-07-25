@@ -97,3 +97,5 @@ Route::middleware(['checkauth'])->group(function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Task
+Route::get('/kerja-unit', [UnitKerjaController::class,'kerjaUnit_show']);

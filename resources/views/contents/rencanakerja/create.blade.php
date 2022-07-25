@@ -17,7 +17,17 @@
                     <option value="{{$item->id}}">{{$item->nama_area_perubahan}}</option>
                 @endforeach
               </select>
-            </div><br>          
+            </div><br>
+            
+            <label for="">Unit Kerja</label><br>
+            <div class="input-group">
+              <select name="unit_kerja_id" id="" class="form-control">
+                <option disabled selected>Pilih</option>
+                @foreach ($unit as $item)
+                    <option value="{{$item->unit_kerja_id}}">{{$item->name}}</option>
+                @endforeach
+              </select>
+            </div><br>            
             <label for="">Target Waktu</label><br>
             <div class="input-group">      
               <input type="datetime-local" name="tanggal_waktu" id="" class="form-control">

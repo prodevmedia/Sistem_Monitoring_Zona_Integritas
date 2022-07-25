@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class UnitKerja extends Authenticatable
@@ -19,6 +20,8 @@ class UnitKerja extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = "unit_kerjas";
+    protected $primaryKey='id';
     protected $fillable = [
         'name',
         'email',
@@ -59,6 +62,17 @@ class UnitKerja extends Authenticatable
 
     public function file(){
         return $this->belongsTo(FileUpload::class,'id','user_id');
+    }
+    static function get_all(){
+        $data=DB::table('unit_kerjas')->get();
+        return $data;
+    }
+    static function get_by_id($id){
+        $data = DB::table("unit_kerjas")->where('id',$id)->get();
+        return $data;
+    }
+    public function rencanakerja(){
+        return $this->belongsTo(RencanaKerja::class,'unit_kerja_id');
     }
     
 }
