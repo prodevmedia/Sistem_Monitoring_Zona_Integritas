@@ -83,12 +83,29 @@ class MasterUnitKerjaController extends Controller
 
     public function delete(Request $request){
         $id = $request->id;
-        $cek = MasterUnitKerja::where('id',$id)->with('userunitkerja')->first();
-        if ($cek->userunitkerja) {
+
+        // cek apakah id master unit kerja tersebut ada
+        $masterunitkerja = MasterUnitKerja::find($id);
+        if ($masterunitkerja) {
+            // cek apakah master unit kerja mempunyai user
+            // jika iya tidak dapat dihapus
+            if ($masterunitkerja->userunitkerja) {
+                return response()->json([
+                    "status" => 400,
+                    "message" => "Tidak bisa di hapus karena sudah di miliki user"
+                ]);    
+            } else {
+                MasterUnitKerja::where('id',$id)->delete();
+                return response()->json([
+                    "status" => 200,
+                    "message" => "Data unit kerja berhasil di hapus"
+                ]);    
+            }
+        } else {
             return response()->json([
                 "status" => 400,
-                "message" => "Tidak bisa di hapus karena sudah di miliki user"
-            ]);
+                "message" => "Data unit kerja tidak ditemukan"
+            ]);    
         }
     }
 }
