@@ -31,6 +31,6 @@ class CreateRencanaKerjaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rencana_kerja');
+        Schema::dropIfExists('rencana_kerjas');
     }
 }
