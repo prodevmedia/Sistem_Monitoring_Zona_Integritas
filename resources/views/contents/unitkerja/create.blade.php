@@ -35,7 +35,7 @@
         <select name="unit_kerja" id="" class="form-control">
             <option selected disabled>Pilih</option>
             @foreach ($masterunitkerja as $key=>$item)
-                <option value="{{$item->id}}">{{$item->name_unit_kerja}}</option>
+                <option value="{{$item->id}}">{{$item->name}}</option>
             @endforeach
         </select> <br>
         @error('unit_kerja')

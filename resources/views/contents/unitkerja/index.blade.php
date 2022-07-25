@@ -41,7 +41,7 @@
                       <td>{{$key+1}}</td>
                       <td>{{$item->name}}</td>
                       <td>{{$item->email}}</td>
-                      <td>{{$item->masterunitkerja->name_unit_kerja}}</td>
+                      <td>{{$item->masterunitkerja->name}}</td>
                       <td>
                         <a href="{{route('unitkerja.edit',$item->id)}}" class="btn btn-warning btn-sm">Edit</a>
                         <a href="#hapus"  data-toggle="modal" data-target="#hapus" onclick="hapus({{$item->id}})" class="btn-submit btn btn-danger btn-sm">Delete</a>

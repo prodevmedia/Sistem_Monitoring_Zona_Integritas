@@ -71,7 +71,7 @@
                   $scoringUnitKerja = \DB::table('scoring_master_unit_kerjas')->where('file_id',$fileid)->where('unit_kerja_id',$id)->first();                  
               @endphp    
               <tr>
-                <td>{{$user->masterunitkerja->name_unit_kerja}}</td>   
+                <td>{{$user->masterunitkerja->name}}</td>   
                 <td>
                   {{$scoringUnitKerja->bobot}}
                 </td>

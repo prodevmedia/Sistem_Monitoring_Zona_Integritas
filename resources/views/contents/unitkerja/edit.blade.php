@@ -38,7 +38,7 @@
           @foreach ($masterunitkerja as $key=>$item)
               <option value="{{$item->id}}" @if ($item->id == $unitkerja->unit_kerja_id)
                   selected
-              @endif>{{$item->name_unit_kerja}}</option>
+              @endif>{{$item->name}}</option>
           @endforeach
       </select> <br>
       @error('unit_kerja')

@@ -72,7 +72,7 @@
                 <td colspan="9" align="center">Penilaian Master Unit Kerja</td>
               </tr>    
               <tr>
-                <td>{{$user->masterunitkerja->name_unit_kerja}}</td>   
+                <td>{{$user->masterunitkerja->name}}</td>   
                 <td>
                   <input type="number" style="font-size:15px; width: auto; !important; border:none; background-color:none;" min="0.00" step="0.01" name="masterunitkerja[bobot]" id="">
                 </td>
