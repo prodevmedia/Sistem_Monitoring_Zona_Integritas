@@ -17,7 +17,7 @@ class MasterUnitKerjaSeeder extends Seeder
         //
         // MasterUnitKerja::truncate();
         MasterUnitKerja::create([
-            'name_unit_kerja' => "Manajemen Pelaksana"
+            'name' => "Manajemen Pelaksana"
         ]);
     }
 }
