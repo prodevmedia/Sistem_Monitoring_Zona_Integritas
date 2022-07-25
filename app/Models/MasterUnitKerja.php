@@ -9,7 +9,7 @@ class MasterUnitKerja extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['name_unit_kerja'];
+    protected $fillable = ['name'];
 
     /**
      * Get the user that owns the Mast
