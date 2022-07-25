@@ -42,6 +42,8 @@ Route::middleware(['checkauth'])->group(function(){
             Route::get('/create',[MasterUnitKerjaController::class,'create'])->name('create')->middleware('isadmin');
             Route::get('/{id}',[MasterUnitKerjaController::class,'edit'])->name('edit')->middleware('isadmin');
             Route::put('/{id}',[MasterUnitKerjaController::class,'update'])->name('update')->middleware('isadmin');
+
+            Route::get('/{id}/getUserUnitKerja',[MasterUnitKerjaController::class,'getUserUnitKerja'])->name('getUserUnitKerja')->middleware('isadmin');
         });
     });
     Route::prefix('area-perubahan')->group(function(){

@@ -16,6 +16,7 @@ class RencanaKerja extends Model
     public function areaperubahan(){
         return $this->hasOne(AreaPerubahan::class,'id','area_perubahan_id');
     }
+
     static function get_by_area($area_perubahan_id){
         $data = DB::table("rencana_kerjas")->where('area_perubahan_id',$area_perubahan_id)->get();
         return $data;
@@ -24,8 +25,17 @@ class RencanaKerja extends Model
         $data = DB::table("rencana_kerjas")->where('unit_kerja_id',$unit_kerja_id)->get();
         return $data;
     }
+
     public function unitkerja(){
         return $this->hasMany(UnitKerja::class);
+    }
+
+    public function masterunitkerja(){
+        return $this->belongsTo(MasterUnitKerja::class,'master_unit_kerja_id','id');
+    }
+
+    public function userunitkerja(){
+        return $this->belongsTo(UnitKerja::class,'unit_kerja_id','id');
     }
     
 }

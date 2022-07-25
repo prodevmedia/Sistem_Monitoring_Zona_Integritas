@@ -31,8 +31,9 @@
               <thead>
                 <tr>
                     <th>No</th>
-                    <th>Rencana aksi</th>
-                    <th>Area Perubahan</th>
+                    <th>Rencana Aksi</th>
+                    <th>Unit Kerja</th>
+                    <th>User</th>
                     <th>Target Waktu</th>
                     <th>Realisasi</th>
                     @if (auth()->user()->role=="admin")  
@@ -45,7 +46,8 @@
                           <tr>
                             <td>{{$key+1}}</td>
                             <td>{{$item->rencana_aksi}}</td>
-                            <td>{{$item->areaperubahan->nama_area_perubahan}}</td>
+                            <td>{{$item->masterunitkerja->name}}</td>
+                            <td>{{$item->userunitkerja->name}}</td>
                             <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y H:mm')}}</td>
                             <td>{{$item->realisasi}}</td>
                             <td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterUnitKerja;
+use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -107,5 +108,12 @@ class MasterUnitKerjaController extends Controller
                 "message" => "Data unit kerja tidak ditemukan"
             ]);    
         }
+    }
+
+    // not crud
+    public function getUserUnitKerja(Request $request, $id){
+        $userUnitKerja = UnitKerja::where('unit_kerja_id', $id)->get();
+
+        return response()->json($userUnitKerja);
     }
 }
