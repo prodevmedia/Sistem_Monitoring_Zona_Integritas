@@ -17,7 +17,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         //
-        User::truncate();
+        // User::truncate();
         $faker = Faker::create();
         for ($i=0; $i < 2; $i++) { 
             User::create([

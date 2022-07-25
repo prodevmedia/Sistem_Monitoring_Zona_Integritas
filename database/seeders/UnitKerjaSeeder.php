@@ -18,7 +18,7 @@ class UnitKerjaSeeder extends Seeder
     public function run()
     {
         //
-        UnitKerja::truncate();
+        // UnitKerja::truncate();
         $master = MasterUnitKerja::first();
         $faker = Faker::create();
         UnitKerja::create([
