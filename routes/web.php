@@ -8,6 +8,7 @@ use App\Http\Controllers\RencanaKerjaController;
 use App\Http\Controllers\SubAreaPerubahanController;
 use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\UploadFileController;
+use App\Http\Controllers\UploadRealisasiKerjaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,15 +77,18 @@ Route::middleware(['checkauth'])->group(function(){
         });
     });
     Route::prefix('lembar-kerja-evaluasi')->group(function(){
-        Route::name('laporanevaluasi.')->group(function(){
-            Route::get('/',[LaporanEvaluasiController::class,'index'])->name('index')->middleware(['iseksekutifandadmin']);            
-            Route::post('/',[LaporanEvaluasiController::class,'store'])->name('store')->middleware(['iseksekutifandadmin']);            
-            Route::post('/update',[LaporanEvaluasiController::class,'update'])->name('update')->middleware(['iseksekutifandadmin']);            
-            Route::get('/berinilai/{id}/{fileid}',[LaporanEvaluasiController::class,'berinilai'])->name('berinilai')->middleware(['iseksekutifandadmin']);            
-            Route::post('/delete',[LaporanEvaluasiController::class,'destroy'])->name('delete')->middleware(['iseksekutifandadmin']);            
-            Route::get('/edit/{id}/{fileid}',[LaporanEvaluasiController::class,'edit'])->name('edit')->middleware(['iseksekutifandadmin']);            
-            Route::get('/show/{id}/{fileid}',[LaporanEvaluasiController::class,'show'])->name('show')->middleware(['iseksekutifandadmin']);            
+        Route::name('lembar-kerja-evaluasi.')->group(function(){
+            Route::get('/',[LaporanEvaluasiController::class,'index'])->name('index')->middleware(['iseksekutifandadmin']);
         });
+        // Route::name('laporanevaluasi.')->group(function(){
+        //     Route::get('/',[LaporanEvaluasiController::class,'index'])->name('index')->middleware(['iseksekutifandadmin']);            
+        //     Route::post('/',[LaporanEvaluasiController::class,'store'])->name('store')->middleware(['iseksekutifandadmin']);            
+        //     Route::post('/update',[LaporanEvaluasiController::class,'update'])->name('update')->middleware(['iseksekutifandadmin']);            
+        //     Route::get('/berinilai/{id}/{fileid}',[LaporanEvaluasiController::class,'berinilai'])->name('berinilai')->middleware(['iseksekutifandadmin']);            
+        //     Route::post('/delete',[LaporanEvaluasiController::class,'destroy'])->name('delete')->middleware(['iseksekutifandadmin']);            
+        //     Route::get('/edit/{id}/{fileid}',[LaporanEvaluasiController::class,'edit'])->name('edit')->middleware(['iseksekutifandadmin']);            
+        //     Route::get('/show/{id}/{fileid}',[LaporanEvaluasiController::class,'show'])->name('show')->middleware(['iseksekutifandadmin']);            
+        // });
     });
 
     Route::prefix('upload-file')->group(function(){
@@ -92,6 +96,14 @@ Route::middleware(['checkauth'])->group(function(){
             Route::get('/',[UploadFileController::class,'index'])->name('index')->middleware(['isunitkerja']);            
             Route::post('/',[UploadFileController::class,'store'])->name('store')->middleware(['isunitkerja']);            
             Route::delete('/delete',[UploadFileController::class,'delete'])->name('delete')->middleware(['isunitkerja']);           
+        });
+    });
+
+    Route::prefix('upload-realisasi-kerja')->group(function(){
+        Route::name('uploadRealiasiKerja.')->group(function(){
+            Route::get('/',[UploadRealisasiKerjaController::class,'index'])->name('index')->middleware(['isunitkerja']);            
+            Route::post('/',[UploadRealisasiKerjaController::class,'upload'])->name('upload')->middleware(['isunitkerja']);            
+            Route::delete('/delete',[UploadRealisasiKerjaController::class,'delete'])->name('delete')->middleware(['isunitkerja']);           
         });
     });
 });

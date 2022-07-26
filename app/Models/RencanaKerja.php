@@ -37,5 +37,9 @@ class RencanaKerja extends Model
     public function userunitkerja(){
         return $this->belongsTo(UnitKerja::class,'unit_kerja_id','id');
     }
+
+    public function fileuploads(){
+        return $this->hasMany(FileUpload::class,'rencana_kerja_id','id');
+    }
     
 }

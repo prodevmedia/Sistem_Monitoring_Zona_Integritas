@@ -11,7 +11,7 @@ class FileUpload extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['user_id','name_file','path_file'];
+    protected $fillable = ['user_id','name_file','path_file','rencana_kerja_id'];
     
     public function user(){
         return $this->hasOne(UnitKerja::class,'id','user_id');
