@@ -15,8 +15,6 @@ class CreateRencanaKerjaTable extends Migration
     {
         Schema::create('rencana_kerjas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('area_perubahan_id');
-            $table->foreign('area_perubahan_id')->references('id')->on('area_perubahans');
             $table->dateTimeTz('tanggal_waktu');
             $table->string('realisasi');
             $table->string('rencana_aksi');
