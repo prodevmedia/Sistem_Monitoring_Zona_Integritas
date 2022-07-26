@@ -74,7 +74,7 @@ return [
         ],
         'unitkerjas' => [
             'driver' => 'eloquent',
-            'model' => App\Models\UnitKerja::class,
+            'model' => App\Models\UserUnitKerja::class,
         ],
 
         // 'users' => [
