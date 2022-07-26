@@ -12,8 +12,8 @@ class UploadRealisasiKerjaController extends Controller
 {
         //
         public function index(){
-            $id = Auth::guard('unitkerja')->user()->id;
-            $rencana = RencanaKerja::where('unit_kerja_id', $id)->orderBy('id',"desc")->get();
+            $master_unit_kerja_id = Auth::guard('unitkerja')->user()->master_unit_kerja_id;
+            $rencana = RencanaKerja::where('master_unit_kerja_id', $master_unit_kerja_id)->orderBy('id',"desc")->get();
 
             return view('contents.uploadrealisasikerja.index',compact('rencana'));    
         }
