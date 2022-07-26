@@ -5,11 +5,11 @@
 <div class="container py-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{route('unitkerja.index')}}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{{route('userUnitKerja.index')}}">Home</a></li>
           <li class="breadcrumb-item active" aria-current="page">Create User Unit Kerja</li>
         </ol>
     </nav>  
-    <form action="{{route('unitkerja.store')}}" method="post">    
+    <form action="{{route('userUnitKerja.store')}}" method="post">    
         @csrf
         <label for="">Nama</label><br>
         <input type="text" name="name" id="" class="form-control" placeholder="Nama"><br>
@@ -26,13 +26,8 @@
         @error('password')
             <div style="color:red">{{$message}}</div><br>
         @enderror        
-        {{-- <label for="">Username</label><br>
-        <input type="text" name="username" id="" class="form-control" placeholder="Username"><br>
-        @error('username')
-            <div style="color:red">{{$message}}</div><br>
-        @enderror         --}}
         <label for="">Unit Kerja</label><br>
-        <select name="unit_kerja" id="" class="form-control">
+        <select name="master_unit_kerja_id" id="" class="form-control">
             <option selected disabled>Pilih</option>
             @foreach ($masterunitkerja as $key=>$item)
                 <option value="{{$item->id}}">{{$item->name}}</option>

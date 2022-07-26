@@ -1,6 +1,6 @@
 @extends('master')
-@section('unitkerjaactive','active')
-@section('title',"Unit Kerja")
+@section('userUnitKerjaActive','active')
+@section('title',"UserUnit Kerja")
 @section('content')
 @if (Session::has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -20,7 +20,7 @@
     <div class="card">
         <div class="card-header">
             <div class="d-flex justify-content-end align-items-center">
-                <a class="btn btn-primary btn-sm" href="{{route('unitkerja.create')}}">Tambah Unit Kerja</a>
+                <a class="btn btn-primary btn-sm" href="{{route('userUnitKerja.create')}}">Tambah Unit Kerja</a>
             </div>
         </div>
         <div class="card-body">
@@ -35,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $key=>$item)
+                    @foreach ($users as $key=>$item)
                         
                     <tr>
                       <td>{{$key+1}}</td>
@@ -43,7 +43,7 @@
                       <td>{{$item->email}}</td>
                       <td>{{$item->masterunitkerja->name}}</td>
                       <td>
-                        <a href="{{route('unitkerja.edit',$item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{route('userUnitKerja.edit',$item->id)}}" class="btn btn-warning btn-sm">Edit</a>
                         <a href="#hapus"  data-toggle="modal" data-target="#hapus" onclick="hapus({{$item->id}})" class="btn-submit btn btn-danger btn-sm">Delete</a>
                       </td>
                     </tr>
@@ -78,13 +78,13 @@
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           console.log(id)
-          axios.post("{{route('unitkerja.delete')}}", {          
+          axios.post("{{route('userUnitKerja.delete')}}", {          
             "_token":"{{csrf_token()}}",
             "id" : id
           })
           .then(function (response) {            
             Swal.fire('Terhapus!', '', 'success').then(()=>{
-              window.location = "{{route('unitkerja.index')}}"
+              window.location = "{{route('userUnitKerja.index')}}"
             })
           })
         } else if (result.isDenied) {

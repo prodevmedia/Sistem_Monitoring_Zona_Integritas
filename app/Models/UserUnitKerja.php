@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
 
-class UnitKerja extends Authenticatable
+class UserUnitKerja extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
@@ -28,7 +28,7 @@ class UnitKerja extends Authenticatable
         'password',
         'role',
         'username',
-        'unit_kerja_id'
+        'master_unit_kerja_id'
     ];
 
     /**
@@ -57,14 +57,14 @@ class UnitKerja extends Authenticatable
      */
     public function masterunitkerja()
     {
-        return $this->hasOne(MasterUnitKerja::class,'id','unit_kerja_id');
+        return $this->hasOne(MasterUnitKerja::class,'id','master_unit_kerja_id');
     }
 
     public function file(){
         return $this->belongsTo(FileUpload::class,'id','user_id');
     }
     static function get_all(){
-        $data=DB::table('unit_kerjas')->get();
+        $data = DB::table('unit_kerjas')->get();
         return $data;
     }
     static function get_by_id($id){

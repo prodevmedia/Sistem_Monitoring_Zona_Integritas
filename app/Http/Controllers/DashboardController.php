@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
-use App\Models\UnitKerja;
+use App\Models\UserUnitKerja;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class DashboardController extends Controller
             return view('contents.dashboard',compact('doneEvaluasi','countingNotEvaluasi','fileLaporan'));
         }
         else if (auth()->guard('web')->user()->role == "admin" || auth()->guard('web')->user()->role == "eksekutif") {
-            $unitKerja = UnitKerja::count();
+            $unitKerja = UserUnitKerja::count();
             $fileLaporan = FileUpload::whereMonth('created_at',Carbon::now('Asia/Jakarta')->format('m'))->count();
             $fileCheck = FileUpload::all();           
             $countingNotEvaluasi = 0;

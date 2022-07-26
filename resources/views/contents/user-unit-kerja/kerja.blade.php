@@ -104,13 +104,13 @@
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           console.log(id)
-          axios.post("{{route('unitkerja.delete')}}", {          
+          axios.post("{{route('userUnitKerja.delete')}}", {          
             "_token":"{{csrf_token()}}",
             "id" : id
           })
           .then(function (response) {            
             Swal.fire('Terhapus!', '', 'success').then(()=>{
-              window.location = "{{route('unitkerja.index')}}"
+              window.location = "{{route('userUnitKerja.index')}}"
             })
           })
         } else if (result.isDenied) {

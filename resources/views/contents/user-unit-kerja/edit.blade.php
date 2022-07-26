@@ -5,11 +5,11 @@
 <div class="container py-4">
   <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{route('unitkerja.index')}}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{route('userUnitKerja.index')}}">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Edit User Unit Kerja</li>
       </ol>
   </nav>  
-  <form action="{{route('unitkerja.update',$unitkerja->id)}}" method="post">    
+  <form action="{{route('userUnitKerja.update',$unitkerja->id)}}" method="post">    
       @method('put')
       @csrf
       <label for="">Nama</label><br>
@@ -33,10 +33,10 @@
           <div style="color:red">{{$message}}</div><br>
       @enderror         --}}
       <label for="">Unit Kerja</label><br>
-      <select name="unit_kerja" id="" class="form-control">
+      <select name="master_unit_kerja_id" id="" class="form-control">
           <option selected disabled>Pilih</option>
           @foreach ($masterunitkerja as $key=>$item)
-              <option value="{{$item->id}}" @if ($item->id == $unitkerja->unit_kerja_id)
+              <option value="{{$item->id}}" @if ($item->id == $unitkerja->master_unit_kerja_id)
                   selected
               @endif>{{$item->name}}</option>
           @endforeach
