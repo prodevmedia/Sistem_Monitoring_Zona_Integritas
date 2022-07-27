@@ -3,12 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\MasterUnitKerja;
-use App\Models\UnitKerja;
+use App\Models\UserUnitKerja;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
-class UnitKerjaSeeder extends Seeder
+class UserUnitKerjaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,11 +21,11 @@ class UnitKerjaSeeder extends Seeder
         // UnitKerja::truncate();
         $master = MasterUnitKerja::first();
         $faker = Faker::create();
-        UnitKerja::create([
+        UserUnitKerja::create([
             "name" => $faker->name,
             "email" => $faker->email,
             'password' => Hash::make(123456),
-            'unit_kerja_id' => $master->id
+            'master_unit_kerja_id' => $master->id
         ]);
     }
 }
