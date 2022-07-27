@@ -14,7 +14,7 @@ class FileUpload extends Model
     protected $fillable = ['user_id','name_file','path_file','rencana_kerja_id'];
     
     public function user(){
-        return $this->hasOne(UnitKerja::class,'id','user_id');
+        return $this->hasOne(UserUnitKerja::class,'id','user_id');
     }
 
     public function points(){

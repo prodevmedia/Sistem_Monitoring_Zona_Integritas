@@ -58,6 +58,7 @@ Route::middleware(['checkauth'])->group(function () {
     Route::prefix('lembar-kerja-evaluasi')->group(function () {
         Route::name('lembarKerjaEvaluasi.')->group(function () {
             Route::get('/', [LembarKerjaEvaluasiController::class, 'index'])->name('index')->middleware(['iseksekutifandadmin']);
+            Route::post('/evaluasi', [LembarKerjaEvaluasiController::class, 'evaluasi'])->name('evaluasi')->middleware(['iseksekutifandadmin']);
         });
     });
 

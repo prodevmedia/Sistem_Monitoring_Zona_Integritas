@@ -21,10 +21,10 @@
                         
             <label for="">Target Waktu</label><br>
             <div class="input-group">      
-              <input type="datetime-local" name="tanggal_waktu" id="" class="form-control">
+              <input type="date" name="tanggal_waktu" id="" class="form-control">
             </div><br>
-            <label for="">Rencana Realisasi</label><br>
-            <input type="text" name="realisasi" id="" class="form-control"><br>
+            <label for="">Rencana Realisasi (Tahun)</label><br>
+            <input type="number" min="1990" max="2999" name="realisasi" id="" class="form-control"><br>
             <label for="">Rencana Aksi</label><br>
             <div class="input-group">
               <textarea name="rencana_aksi" id="" cols="30" rows="10" class="form-control"></textarea>

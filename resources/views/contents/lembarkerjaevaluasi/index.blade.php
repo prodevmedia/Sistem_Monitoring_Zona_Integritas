@@ -1,6 +1,6 @@
 @extends('master')
-@section('uploadRealisasiKerja','active')
-@section('title',"Upload Realisasi Kerja")
+@section('lembarkerjaevaluasi','active')
+@section('title',"Evaluasi Rencana Kerja")
 @section('content')
 <div class="container-fluid py-4">
   @if (Session::has('success'))
@@ -43,17 +43,11 @@
                             <td>{{$item->status}}</td>
                             <td>
                               @foreach ($item->fileuploads as $file)
-                                <a href="{{url('/upload/'.$file->name_file)}}" target="_blank">{{$file->name_file}}</a>
-                                @if ($item->status !='Sudah Evaluasi')
-                                  <button onclick="deleteFile({{$file->id}})" class="btn btn-sm btn-danger">Hapus</button>
-                                @endif
-                                <br>
+                                <a href="{{url('/upload/'.$file->name_file)}}" target="_blank">{{$file->name_file}}</a><br>
                               @endforeach
                               @if ($item->status !='Belum Upload')
                                 <button onclick="detail('{{$item->status}}', '{{$item->nilai}}', '{{$item->keterangan}}')" class="btn btn-sm btn-success">Detail</button>                                  
-                              @endif
-                              @if ($item->status !='Sudah Evaluasi')
-                                <a href="#uploadRealisasi" onclick="upload({{$item->id}})" class="btn btn-sm btn-primary">+ Upload</a>
+                                <button onclick="evaluasi({{$item->id}})" class="btn btn-sm btn-primary">Beri Evaluasi</button>                                  
                               @endif
                             </td>
                           </tr>
@@ -102,40 +96,14 @@
 </div>
 
 
-{{-- Hapus File --}}
-<div class="modal fade" id="modal-delete-file" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <form action="{{route('uploadRealiasiKerja.delete')}}" method="post">
-      @csrf
-      @method("DELETE")
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Hapus File</h5>
-        <a class="close" data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
-          <span aria-hidden="true">&times;</span>
-        </a>
-      </div>
-      <div class="modal-body">  
-          <input type="hidden" name="id" id="file-id">
-          <h4>Apa kamu yakin untuk menghapusnya ?</h4>        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Tidak</button>
-        <button type="submit" class="btn btn-success btn-sm">Ya</button>
-      </div>
-    </div>
-    </form>
-  </div>
-</div>
-
-{{-- upload file --}}
-<div class="modal fade" id="modal-upload" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <form method="post" action="{{route('uploadRealiasiKerja.upload')}}"  enctype="multipart/form-data">
+{{-- modal evaluasi --}}
+<div class="modal fade" id="modal-evaluasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <form method="post" action="{{route('lembarKerjaEvaluasi.evaluasi')}}">
         @csrf
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Evaluasi Rencana Kerja</h5>
             <a class="close" data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
               <span aria-hidden="true">&times;</span>
             </a>
@@ -143,14 +111,27 @@
           <div class="modal-body">            
             <div class="row">
               <input type="hidden" name="rencana_kerja_id" id="rencana-kerja-id">
-              <div class="col-3">
-                <input type="file" accept=".pdf" name="upload" class="btn btn-sm btn-success" id=""> 
+              <div class="form-group">
+                <label for="status-rencana-kerja">Status Dokumen Realiasi Kerja</label>
+                <select class="form-control" id="status-rencana-kerja" name="status">
+                  <option disabled selected>Pilih Status</option>
+                  <option value="Revisi">Revisi</option>
+                  <option value="Sudah Evaluasi">Sudah Evaluasi</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="nilai-rencana-kerja">Nilai Realisasi Kerja (0-100)</label>
+                <input id="nilai-rencana-kerja" name="nilai" type="number" min="0" max="100" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="status-rencana-kerja">Keterangan Revisi/Evaluasi Realiasi Kerja</label>
+                <textarea rows="5" id="status-rencana-kerja" name="keterangan" class="form-control"></textarea>
               </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
           </div>
         </div>
       </form>
@@ -169,22 +150,15 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: true
+        responsive: true,
     });
 </script>
 <script>
-  function upload(id){
+  function evaluasi(id){
     $("#rencana-kerja-id").val(id);
 
     // open modal
-    $("#modal-upload").modal("show");
-  }
-
-  function deleteFile(id) {
-    $("#file-id").val(id);
-
-    // open modal
-    $("#modal-delete-file").modal("show");
+    $("#modal-evaluasi").modal("show");
   }
 
   function detail(status, nilai, keterangan){
@@ -196,6 +170,7 @@
     // open modal
     $("#modal-detail-evaluasi").modal("show");
   }
+
 </script>
 @endpush
 @endsection

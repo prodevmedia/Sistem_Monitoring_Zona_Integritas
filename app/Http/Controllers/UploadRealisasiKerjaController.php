@@ -21,7 +21,7 @@ class UploadRealisasiKerjaController extends Controller
         public function upload(Request $request){
             $validate = $this->validate($request,[
                 'upload' => "required|file|mimes:pdf",
-                'rencana_kerja_id' => "required"
+                'rencana_kerja_id' => "required|exists:rencana_kerjas,id",
             ],[
                 'required' => ":attribute tidak Boleh kosong",
                 'mimes' => ":attribute Harus Berformat PDF"
@@ -43,6 +43,10 @@ class UploadRealisasiKerjaController extends Controller
                 "path_file" => $path,
                 "rencana_kerja_id" => $request->rencana_kerja_id
             ]);
+
+            $rencanaKerja = RencanaKerja::find($request->rencana_kerja_id);
+            $rencanaKerja->status = "Belum Evaluasi";
+            $rencanaKerja->save();
     
             return redirect()->back()->with('success','Upload File Berhasil mohon tunggu untuk di evaluasi admin');
     

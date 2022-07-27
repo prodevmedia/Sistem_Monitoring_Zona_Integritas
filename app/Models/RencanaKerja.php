@@ -11,7 +11,7 @@ class RencanaKerja extends Model
 
     protected $table = "rencana_kerjas";
     protected $primaryKey='id';
-    protected $fillable = ['tanggal_waktu','realisasi','rencana_aksi'];
+    protected $fillable = ['tanggal_waktu','realisasi','rencana_aksi', 'status', 'nilai', 'keterangan'];
 
     public function masterunitkerja(){
         return $this->belongsTo(MasterUnitKerja::class,'master_unit_kerja_id','id');
