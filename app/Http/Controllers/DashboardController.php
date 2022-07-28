@@ -27,8 +27,9 @@ class DashboardController extends Controller
             $fileLaporan = RencanaKerja::count();
             $countingNotEvaluasi = RencanaKerja::where('status','!=','Sudah Evaluasi')->count();
             $doneEvaluasi = $fileLaporan - $countingNotEvaluasi;
+            $revisi = RencanaKerja::where('status','Revisi')->count();;
             
-            return view('contents.dashboardadmin',compact('doneEvaluasi','countingNotEvaluasi','fileLaporan','unitKerja'));
+            return view('contents.dashboardadmin',compact('doneEvaluasi','countingNotEvaluasi','fileLaporan' , 'revisi','unitKerja'));
         }
     }
 }

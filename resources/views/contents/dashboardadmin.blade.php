@@ -5,7 +5,7 @@
 <div class="container-fluid py-4">
     {{-- {{dd(auth()->user())}} --}}
     <h1>WELCOME {{auth()->user() ? auth()->user()->name : auth()->guard('unitkerja')->user()->name}}</h1>    <br>
-    <div class="row">
+    <div class="row mb-3">
       <div class="col-md-3">
         <div class="card">                    
           <p class="p-3" style="font-size: 14px;">          
@@ -13,6 +13,16 @@
           </p>
           <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
             {{$countingNotEvaluasi}}
+          </h1>          
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card">                    
+          <p class="p-3" style="font-size: 14px;">          
+            Laporan Yang Belum di Revisi
+          </p>
+          <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+            {{$revisi}}
           </h1>          
         </div>
       </div>
@@ -36,6 +46,8 @@
           </h1>          
         </div>
       </div>
+    </div>
+    <div class="row">
       <div class="col-md-3">
         <div class="card">                    
           <p class="p-3" style="font-size: 14px;">          
