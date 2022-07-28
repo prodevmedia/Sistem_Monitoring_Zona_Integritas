@@ -19,6 +19,16 @@
         <div class="col-md-3">
           <div class="card">                    
             <p class="p-3" style="font-size: 14px;">          
+              Laporan Yang di Revisi
+            </p>
+            <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+              {{$revisi}}
+            </h1>          
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">                    
+            <p class="p-3" style="font-size: 14px;">          
               Laporan Yang Sudah di Evaluasi
             </p>
             <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
