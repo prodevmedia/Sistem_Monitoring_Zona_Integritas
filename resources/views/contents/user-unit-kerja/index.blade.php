@@ -33,6 +33,13 @@
                         <th>Unit Kerja</th>
                         <th>Action</th>
                     </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach ($users as $key=>$item)
@@ -66,7 +73,33 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: true
+        responsive: false,
+        orderCellsTop: true,
+        initComplete: function() {
+          var table = this.api();
+
+          // Add filtering
+          table.columns([3]).every(function() {
+            var column = this;
+
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($("thead tr:eq(1) td").eq(this.index()))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+
+          });
+        }
     });
     function hapus(id){
       Swal.fire({

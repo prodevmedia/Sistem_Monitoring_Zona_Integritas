@@ -34,9 +34,21 @@
                     <th>Rencana Aksi</th>
                     <th>Unit Kerja</th>
                     <th>Target Waktu</th>
+                    <th>Tahun</th>
                     <th>Status</th>
                     @if (auth()->user()->role=="admin")  
                       <th>Action</th>
+                    @endif
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    @if (auth()->user()->role=="admin")  
+                      <td></td>
                     @endif
                   </tr>
                     </thead>
@@ -47,6 +59,7 @@
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
                             <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('Y')}}</td>
                             <td>{{$item->status}}</td>
                             <td>
                               <a href="{{route('rencanakerja.edit',$item->id)}}" class="btn btn-sm btn-warning">Edit</a>
@@ -75,7 +88,33 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: false
+        responsive: false,
+        orderCellsTop: true,
+        initComplete: function() {
+          var table = this.api();
+
+          // Add filtering
+          table.columns([2, 4, 5]).every(function() {
+            var column = this;
+
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($("thead tr:eq(1) td").eq(this.index()))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+
+          });
+        }
     });
     function deleteRencana(id){
       $("#idrencana").val(id);

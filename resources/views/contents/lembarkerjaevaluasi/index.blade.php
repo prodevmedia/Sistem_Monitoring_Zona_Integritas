@@ -27,8 +27,18 @@
                     <th>Rencana Aksi</th>
                     <th>Unit Kerja</th>
                     <th>Target Waktu</th>
+                    <th>Tahun</th>
                     <th>Status</th>
                     <th>File</th>
+                  </tr>
+                  <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                     </thead>
                     <tbody>                    
@@ -37,7 +47,8 @@
                             <td>{{$key+1}}</td>
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
-                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y H:mm')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('Y')}}</td>
                             <td>{{$item->status}}</td>
                             <td>
                               @foreach ($item->fileuploads as $file)
@@ -149,6 +160,32 @@
             selector: 'td:nth-child(2)'
         },
         responsive: false,
+        orderCellsTop: true,
+        initComplete: function() {
+          var table = this.api();
+
+          // Add filtering
+          table.columns([2, 4, 5]).every(function() {
+            var column = this;
+
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($("thead tr:eq(1) td").eq(this.index()))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+
+          });
+        }
     });
 </script>
 <script>
