@@ -67,7 +67,29 @@ class RencanaKerjaController extends Controller
     }
 
     public function delete(Request $request){
-        $rk = RencanaKerja::find($request->id);        
+        $rk = RencanaKerja::find($request->id);
+        // cek apakah id master unit kerja tersebut ada
+        if ($rk) {
+            // cek apakah master unit kerja mempunyai user
+            // jika iya tidak dapat dihapus
+            if ($rk->fileuploads->count() > 0) {
+                return response()->json([
+                    "status" => 400,
+                    "message" => "Tidak bisa di hapus karena sudah ada file upload"
+                ]);    
+            } else {
+                $rk->delete();
+                return response()->json([
+                    "status" => 200,
+                    "message" => "Rencana kerja berhasil di hapus"
+                ]);    
+            }
+        } else {
+            return response()->json([
+                "status" => 400,
+                "message" => "Rencana kerja tidak ditemukan"
+            ]);    
+        }
         $rk->delete();
         return redirect()->route('rencanakerja.index')->with('success','Rencana Kerja Berhasil di hapus');
     }

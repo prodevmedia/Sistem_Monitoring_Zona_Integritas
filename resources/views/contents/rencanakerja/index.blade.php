@@ -52,7 +52,7 @@
                             <td>{{$item->status}}</td>
                             <td>
                               <a href="{{route('rencanakerja.edit',$item->id)}}" class="btn btn-sm btn-warning">Edit</a>
-                              <a href="#" data-toggle="modal" onclick="deleteRencana({{$item->id}})" data-target="#hapus" rel="noopener noreferrer" class="btn btn-sm btn-danger">Hapus</a>
+                              <a href="#" onclick="hapus({{$item->id}})" rel="noopener noreferrer" class="btn btn-sm btn-danger">Hapus</a>
                             </td>
                           </tr>
                       @endforeach
@@ -62,35 +62,13 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="hapus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <form action="{{route('rencanakerja.delete')}}" method="post">
-        @csrf
-        @method("DELETE")
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Hapus Area Perubahan</h5>
-          <a class="close" data-dismiss="modal" aria-label="Close" style="cursor: pointer;">
-            <span aria-hidden="true">&times;</span>
-          </a>
-        </div>
-        <div class="modal-body">  
-            <input type="hidden" name="id" id="idrencana">
-            <h4>Apa kamu yakin untuk menghapusnya ?</h4>        
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Tidak</button>
-          <button type="submit" class="btn btn-success btn-sm">Ya</button>
-        </div>
-      </div>
-      </form>
-    </div>
-</div>
+
 @push('scriptjs')
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdn.datatables.net/1.12.0/js/dataTables.bootstrap4.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.min.js"></script>
@@ -99,10 +77,43 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: true
+        responsive: false
     });
     function deleteRencana(id){
       $("#idrencana").val(id);
+    }
+
+    function hapus(id){
+      Swal.fire({
+        icon:"info",
+        title: 'Apa anda yakin ingin menghapusnya ?',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          console.log(id)
+          axios.post("{{route('rencanakerja.delete')}}", {          
+            "_token":"{{csrf_token()}}",
+            "id" : id
+          })
+          .then(function (response) {  
+            console.log(response)
+            if (response.data.status == 400) {
+              Swal.fire(`${response.data.message}`, '', 'error').then(()=>{
+                window.location = "{{route('rencanakerja.index')}}"
+              })
+            }else{
+
+              Swal.fire('Terhapus!', '', 'success').then(()=>{
+                window.location = "{{route('rencanakerja.index')}}"
+              })
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Hapus Di batalkan', '', 'info')
+        }
+      })
     }
 </script>
 @endpush
