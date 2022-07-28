@@ -52,7 +52,7 @@ Route::middleware(['checkauth'])->group(function () {
             Route::get('/edit/{id}', [RencanaKerjaController::class, 'edit'])->name('edit')->middleware(['iseksekutifandadmin']);
             Route::get('/create', [RencanaKerjaController::class, 'create'])->name('create')->middleware(['iseksekutifandadmin']);
             Route::put('/update/{id}', [RencanaKerjaController::class, 'update'])->name('update')->middleware(['iseksekutifandadmin']);
-            Route::delete('/delete', [RencanaKerjaController::class, 'delete'])->name('delete')->middleware(['iseksekutifandadmin']);
+            Route::post('/delete', [RencanaKerjaController::class, 'delete'])->name('delete')->middleware(['iseksekutifandadmin']);
         });
     });
     Route::prefix('lembar-kerja-evaluasi')->group(function () {
