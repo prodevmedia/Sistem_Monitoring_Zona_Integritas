@@ -86,7 +86,7 @@
 <script src="https://cdn.datatables.net/responsive/2.3.0/js/responsive.bootstrap4.min.js"></script>
 <script>
     $('#unitkerjatable').DataTable( {
-        responsive: true,
+        responsive: false,
         rowReorder: {
             selector: 'td:nth-child(2)'
         },

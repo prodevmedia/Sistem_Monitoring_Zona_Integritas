@@ -46,8 +46,8 @@
                                 <a href="{{url('/upload/'.$file->name_file)}}" target="_blank">{{$file->name_file}}</a><br>
                               @endforeach
                               @if ($item->status !='Belum Upload')
-                                <button onclick="detail('{{$item->status}}', '{{$item->nilai}}', '{{$item->keterangan}}')" class="btn btn-sm btn-success">Detail</button>                                  
-                                <button onclick="evaluasi({{$item->id}})" class="btn btn-sm btn-primary">Beri Evaluasi</button>                                  
+                                <button data-toggle="modal" data-target="#modal-detail-evaluasi" onclick="detail('{{$item->status}}', '{{$item->nilai}}', '{{$item->keterangan}}')" class="btn btn-sm btn-success">Detail</button>                                  
+                                <button data-toggle="modal" data-target="#modal-evaluasi" onclick="evaluasi({{$item->id}})" class="btn btn-sm btn-primary">Beri Evaluasi</button>                                  
                               @endif
                             </td>
                           </tr>
@@ -113,8 +113,8 @@
               <input type="hidden" name="rencana_kerja_id" id="rencana-kerja-id">
               <div class="form-group">
                 <label for="status-rencana-kerja">Status Dokumen Realiasi Kerja</label>
-                <select class="form-control" id="status-rencana-kerja" name="status">
-                  <option disabled selected>Pilih Status</option>
+                <select class="form-control" id="status-rencana-kerja" name="status" required>
+                  <option disabled selected value="">Pilih Status</option>
                   <option value="Revisi">Revisi</option>
                   <option value="Sudah Evaluasi">Sudah Evaluasi</option>
                 </select>
@@ -150,15 +150,12 @@
         rowReorder: {
             selector: 'td:nth-child(2)'
         },
-        responsive: true,
+        responsive: false,
     });
 </script>
 <script>
   function evaluasi(id){
     $("#rencana-kerja-id").val(id);
-
-    // open modal
-    $("#modal-evaluasi").modal("show");
   }
 
   function detail(status, nilai, keterangan){
@@ -166,9 +163,6 @@
     $("#option-selected").html(status);
     $("#nilai-rencana-kerja").val(nilai);
     $("#keterangan").val(keterangan);
-
-    // open modal
-    $("#modal-detail-evaluasi").modal("show");
   }
 
 </script>

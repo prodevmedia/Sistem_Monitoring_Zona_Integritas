@@ -32,7 +32,6 @@ class RencanaKerjaController extends Controller
         $this->validate($request,[
             'master_unit_kerja_id' => 'required',
             'tanggal_waktu' => 'required',
-            'realisasi' => 'required',
             'rencana_aksi' => 'required',
         ],[
             'required'=>':attribute tidak boleh kosong'
@@ -41,7 +40,6 @@ class RencanaKerjaController extends Controller
         $rk = new RencanaKerja();
         $rk->master_unit_kerja_id = $request->master_unit_kerja_id;
         $rk->tanggal_waktu = $request->tanggal_waktu;
-        $rk->realisasi = $request->realisasi;
         $rk->rencana_aksi = $request->rencana_aksi;
         $rk->save();
 
@@ -52,14 +50,12 @@ class RencanaKerjaController extends Controller
         $this->validate($request,[
             'master_unit_kerja_id' => 'required',
             'tanggal_waktu' => 'required',
-            'realisasi' => 'required',
             'rencana_aksi' => 'required',
         ],[
             'required'=>':attribute tidak boleh kosong'
         ]);
         $rk = RencanaKerja::find($id);        
         $rk->master_unit_kerja_id = $request->master_unit_kerja_id;
-        $rk->realisasi = $request->realisasi;
         $rk->rencana_aksi = $request->rencana_aksi;
         $rk->save();
 
