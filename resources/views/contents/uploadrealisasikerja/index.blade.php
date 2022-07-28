@@ -27,7 +27,6 @@
                     <th>Rencana Aksi</th>
                     <th>Unit Kerja</th>
                     <th>Target Waktu</th>
-                    <th>Realisasi</th>
                     <th>Status</th>
                     <th>File</th>
                   </tr>
@@ -39,7 +38,6 @@
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
                             <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y H:mm')}}</td>
-                            <td>{{$item->realisasi}}</td>
                             <td>{{$item->status}}</td>
                             <td>
                               @foreach ($item->fileuploads as $file)

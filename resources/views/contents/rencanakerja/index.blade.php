@@ -34,7 +34,6 @@
                     <th>Rencana Aksi</th>
                     <th>Unit Kerja</th>
                     <th>Target Waktu</th>
-                    <th>Realisasi</th>
                     <th>Status</th>
                     @if (auth()->user()->role=="admin")  
                       <th>Action</th>
@@ -48,7 +47,6 @@
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
                             <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM')}}</td>
-                            <td>{{$item->realisasi}}</td>
                             <td>{{$item->status}}</td>
                             <td>
                               <a href="{{route('rencanakerja.edit',$item->id)}}" class="btn btn-sm btn-warning">Edit</a>
