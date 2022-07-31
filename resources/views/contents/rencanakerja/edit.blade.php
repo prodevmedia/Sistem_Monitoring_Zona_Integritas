@@ -16,10 +16,10 @@
       </div>
     </div>
   @endif
-  <div class="card">
+  <div class="card col-6">
     <div class="card-body">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <form action="{{route('rencanakerja.update',$rencana->id)}}" method="post">
             @csrf
             @method("PUT")
@@ -42,7 +42,8 @@
             <div class="input-group">
               <textarea name="rencana_aksi" id="" cols="30" rows="10" class="form-control">{{$rencana->rencana_aksi}}</textarea>
             </div><br>
-            <button class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a href="{{route('rencanakerja.index')}}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
       </div>

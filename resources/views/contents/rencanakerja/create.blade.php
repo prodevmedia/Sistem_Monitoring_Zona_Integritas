@@ -4,9 +4,9 @@
 @section('content')
 <div class="container">
   <div class="card">
-    <div class="card-body">
+    <div class="card-body col-6">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <form action="{{route('rencanakerja.store')}}" method="post">
             @csrf
             <label for="">Master Unit Kerja</label><br>
@@ -28,6 +28,7 @@
               <textarea name="rencana_aksi" id="" cols="30" rows="10" class="form-control"></textarea>
             </div><br>
             <button class="btn btn-success">Submit</button>
+            <a href="{{route('rencanakerja.index')}}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
       </div>

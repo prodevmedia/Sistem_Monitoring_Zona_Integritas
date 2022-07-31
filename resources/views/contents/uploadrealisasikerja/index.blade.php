@@ -45,7 +45,7 @@
                             <td>{{$key+1}}</td>
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
-                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y H:mm')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y')}}</td>
                             <td>{{$item->status}}</td>
                             <td>
                               @foreach ($item->fileuploads as $file)
@@ -181,7 +181,7 @@
           var table = this.api();
 
           // Add filtering
-          table.columns([2, 4]).every(function() {
+          table.columns([4]).every(function() {
             var column = this;
 
             var select = $('<select><option value=""></option></select>')

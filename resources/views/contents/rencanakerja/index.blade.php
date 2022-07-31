@@ -36,9 +36,7 @@
                     <th>Target Waktu</th>
                     <th>Tahun</th>
                     <th>Status</th>
-                    @if (auth()->user()->role=="admin")  
-                      <th>Action</th>
-                    @endif
+                    <th>Action</th>
                   </tr>
                   <tr>
                     <td></td>
@@ -47,9 +45,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    @if (auth()->user()->role=="admin")  
-                      <td></td>
-                    @endif
+                    <td></td>
                   </tr>
                     </thead>
                     <tbody>                    
