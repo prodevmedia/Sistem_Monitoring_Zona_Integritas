@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\MasterUnitKerja;
-use App\Models\UnitKerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -90,7 +89,7 @@ class MasterUnitKerjaController extends Controller
         if ($masterunitkerja) {
             // cek apakah master unit kerja mempunyai user
             // jika iya tidak dapat dihapus
-            if ($masterunitkerja->userunitkerja) {
+            if ($masterunitkerja->userunitkerja->count() > 0) {
                 return response()->json([
                     "status" => 400,
                     "message" => "Tidak bisa di hapus karena sudah di miliki user"
@@ -112,7 +111,7 @@ class MasterUnitKerjaController extends Controller
 
     // not crud
     public function getUserUnitKerja(Request $request, $id){
-        $userUnitKerja = UnitKerja::where('unit_kerja_id', $id)->get();
+        $userUnitKerja = MasterUnitKerja::where('unit_kerja_id', $id)->get();
 
         return response()->json($userUnitKerja);
     }
