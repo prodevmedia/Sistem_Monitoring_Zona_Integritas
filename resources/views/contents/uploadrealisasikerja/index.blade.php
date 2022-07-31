@@ -56,10 +56,10 @@
                                 <br>
                               @endforeach
                               @if ($item->status !='Belum Upload')
-                                <button onclick="detail('{{$item->status}}', '{{$item->nilai}}', '{{$item->keterangan}}')" class="btn btn-sm btn-success">Detail</button>                                  
+                                <button data-toggle="modal" data-target="#modal-detail-evaluasi" onclick="detail('{{$item->status}}', '{{$item->nilai}}', '{{$item->keterangan}}')" class="btn btn-sm btn-success">Detail</button>                                  
                               @endif
                               @if ($item->status !='Sudah Evaluasi')
-                                <a href="#uploadRealisasi" onclick="upload({{$item->id}})" class="btn btn-sm btn-primary">+ Upload</a>
+                                <a href="#uploadRealisasi" data-toggle="modal" data-target="#modal-upload" onclick="upload({{$item->id}})" class="btn btn-sm btn-primary">+ Upload</a>
                               @endif
                             </td>
                           </tr>
@@ -207,9 +207,6 @@
 <script>
   function upload(id){
     $("#rencana-kerja-id").val(id);
-
-    // open modal
-    $("#modal-upload").modal("show");
   }
 
   function deleteFile(id) {
@@ -224,9 +221,6 @@
     $("#option-selected").html(status);
     $("#nilai-rencana-kerja").val(nilai);
     $("#keterangan").val(keterangan);
-
-    // open modal
-    $("#modal-detail-evaluasi").modal("show");
   }
 </script>
 @endpush
