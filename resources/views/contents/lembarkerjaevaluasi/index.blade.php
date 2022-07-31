@@ -47,7 +47,7 @@
                             <td>{{$key+1}}</td>
                             <td>{{$item->rencana_aksi}}</td>
                             <td>{{$item->masterunitkerja->name}}</td>
-                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM Y')}}</td>
+                            <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('dddd, D MMMM')}}</td>
                             <td>{{\Carbon\Carbon::parse($item->tanggal_waktu)->isoFormat('Y')}}</td>
                             <td>{{$item->status}}</td>
                             <td>

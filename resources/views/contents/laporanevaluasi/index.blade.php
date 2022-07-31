@@ -76,7 +76,7 @@
                             {!!wordwrap($item->name_file,30,"<br>\n", false)!!}                             
                           </td>
                           <td>{{$item->points ? $item->points->tahun : null}}</td>
-                          <td>{{\Carbon\Carbon::parse($item->created_at)->format("D, d M Y")}}</td>
+                          <td>{{\Carbon\Carbon::parse($item->created_at)->format("D, d M")}}</td>
                           <td>
                             <a href="{{route('laporanevaluasi.show',[$item->user_id,$item->id])}}" class="btn btn-sm btn-success">Detail</a>
                             @php
