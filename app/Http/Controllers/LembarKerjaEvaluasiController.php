@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Periode;
 use App\Models\RencanaKerja;
 use Illuminate\Http\Request;
 
@@ -9,9 +10,10 @@ class LembarKerjaEvaluasiController extends Controller
 {
     public function index(Request $request)
     {
+        $periode = Periode::orderBy('tahun',"desc")->get();
         $rencana = RencanaKerja::orderBy('id',"desc")->get();
 
-        return view('contents.lembarkerjaevaluasi.index', compact('rencana'));    
+        return view('contents.lembarkerjaevaluasi.index', compact('rencana', 'periode'));    
     }
 
     public function evaluasi(Request $request) {

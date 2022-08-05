@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FileUpload;
+use App\Models\Periode;
 use App\Models\RencanaKerja;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -12,10 +13,12 @@ class UploadRealisasiKerjaController extends Controller
 {
         //
         public function index(){
+            $periode = Periode::orderBy('tahun',"desc")->get();
+
             $master_unit_kerja_id = Auth::guard('unitkerja')->user()->master_unit_kerja_id;
             $rencana = RencanaKerja::where('master_unit_kerja_id', $master_unit_kerja_id)->orderBy('id',"desc")->get();
 
-            return view('contents.uploadrealisasikerja.index',compact('rencana'));    
+            return view('contents.uploadrealisasikerja.index',compact('rencana', 'periode'));    
         }
     
         public function upload(Request $request){

@@ -1,6 +1,6 @@
 @extends('master')
 @section('userUnitKerjaActive','active')
-@section('title',"UserUnit Kerja")
+@section('title',"User Unit Kerja")
 @section('content')
 @if (Session::has('success'))
 <div class="alert alert-success alert-dismissible fade show" role="alert">

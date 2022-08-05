@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LembarKerjaEvaluasiController;
 use App\Http\Controllers\MasterUnitKerjaController;
+use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\RencanaKerjaController;
 use App\Http\Controllers\UploadRealisasiKerjaController;
 use App\Http\Controllers\UserUnitKerjaController;
@@ -22,6 +23,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['checkauth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::prefix('periode')->group(function () {
+        Route::name('periode.')->group(function () {
+            Route::get('/', [PeriodeController::class, 'index'])->name('index')->middleware('isadmin');
+            Route::post('/', [PeriodeController::class, 'store'])->name('store')->middleware('isadmin');
+            Route::post('/delete', [PeriodeController::class, 'delete'])->name('delete')->middleware('isadmin');
+            Route::get('/create', [PeriodeController::class, 'create'])->name('create')->middleware('isadmin');
+            Route::get('/{id}', [PeriodeController::class, 'edit'])->name('edit')->middleware('isadmin');
+            Route::put('/{id}', [PeriodeController::class, 'update'])->name('update')->middleware('isadmin');
+
+            Route::post('/change', [PeriodeController::class, 'change'])->name('change')->middleware('isadmin');
+            Route::post('/range', [PeriodeController::class, 'range'])->name('range')->middleware('isadmin');
+            Route::post('/toggle-active', [PeriodeController::class, 'toggleActive'])->name('toggleActive')->middleware('isadmin');
+        });
+    });
     Route::prefix('user-unit-kerja')->group(function () {
         Route::name('userUnitKerja.')->group(function () {
             Route::get('/', [UserUnitKerjaController::class, 'index'])->name('index')->middleware('isadmin');
@@ -53,6 +68,8 @@ Route::middleware(['checkauth'])->group(function () {
             Route::get('/create', [RencanaKerjaController::class, 'create'])->name('create')->middleware(['iseksekutifandadmin']);
             Route::put('/update/{id}', [RencanaKerjaController::class, 'update'])->name('update')->middleware(['iseksekutifandadmin']);
             Route::post('/delete', [RencanaKerjaController::class, 'delete'])->name('delete')->middleware(['iseksekutifandadmin']);
+
+            Route::post('/print', [RencanaKerjaController::class, 'print'])->name('print')->middleware(['iseksekutifandadmin']);
         });
     });
     Route::prefix('lembar-kerja-evaluasi')->group(function () {

@@ -20,5 +20,9 @@ class RencanaKerja extends Model
     public function fileuploads(){
         return $this->hasMany(FileUpload::class,'rencana_kerja_id','id');
     }
+
+    public function periode(){
+        return $this->belongsTo(Periode::class,'periode_id','id');
+    }
     
 }
