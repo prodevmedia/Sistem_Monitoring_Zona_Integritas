@@ -5,6 +5,48 @@
 <div class="container-fluid py-4">
     {{-- {{dd(auth()->user())}} --}}
     <h1>WELCOME {{auth()->user() ? auth()->user()->name : auth()->guard('unitkerja')->user()->name}}</h1>    
+    <div class="row">
+        <div class="col-md-3">
+          <div class="card">                    
+            <p class="p-3" style="font-size: 14px;">          
+              Laporan Yang Belum di Evaluasi
+            </p>
+            <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+              {{$countingNotEvaluasi}}
+            </h1>          
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">                    
+            <p class="p-3" style="font-size: 14px;">          
+              Laporan Yang di Revisi
+            </p>
+            <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+              {{$revisi}}
+            </h1>          
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">                    
+            <p class="p-3" style="font-size: 14px;">          
+              Laporan Yang Sudah di Evaluasi
+            </p>
+            <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+              {{$doneEvaluasi}}
+            </h1>          
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="card">                    
+            <p class="p-3" style="font-size: 14px;">          
+              Laporan Bulan Ini
+            </p>
+            <h1 class="d-flex justify-content-center align-items-center" style="font-size: 100px">
+              {{$fileLaporan}}
+            </h1>          
+          </div>
+        </div>
+      </div>
 </div>
 @push('scriptjs')
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

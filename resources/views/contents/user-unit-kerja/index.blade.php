@@ -1,0 +1,130 @@
+@extends('master')
+@section('userUnitKerjaActive','active')
+@section('title',"User Unit Kerja")
+@section('content')
+@if (Session::has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-start">
+      <strong>Success!</strong>&nbsp;{{Session::get('success')}}
+    </div>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="close btn btn-sm btn-danger" style="color: white" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+@endif
+<div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-end align-items-center">
+                <a class="btn btn-primary btn-sm" href="{{route('userUnitKerja.create')}}">Tambah Unit Kerja</a>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="unitkerjatable" class="display nowrap table table-bordered table-stripped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Unit Kerja</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $key=>$item)
+                        
+                    <tr>
+                      <td>{{$key+1}}</td>
+                      <td>{{$item->name}}</td>
+                      <td>{{$item->email}}</td>
+                      <td>{{$item->masterunitkerja->name}}</td>
+                      <td>
+                        <a href="{{route('userUnitKerja.edit',$item->id)}}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="#hapus"  data-toggle="modal" data-target="#hapus" onclick="hapus({{$item->id}})" class="btn-submit btn btn-danger btn-sm">Delete</a>
+                      </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@push('scriptjs')
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $('#unitkerjatable').DataTable( {
+        rowReorder: {
+            selector: 'td:nth-child(2)'
+        },
+        responsive: false,
+        orderCellsTop: true,
+        initComplete: function() {
+          var table = this.api();
+
+          // Add filtering
+          table.columns([3]).every(function() {
+            var column = this;
+
+            var select = $('<select><option value=""></option></select>')
+              .appendTo($("thead tr:eq(1) td").eq(this.index()))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+                );
+
+                column
+                  .search(val ? '^' + val + '$' : '', true, false)
+                  .draw();
+              });
+
+            column.data().unique().sort().each(function(d, j) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+
+          });
+        }
+    });
+    function hapus(id){
+      Swal.fire({
+        icon:"info",
+        title: 'Apa anda yakin ingin menghapusnya ?',
+        showCancelButton: true,
+        confirmButtonText: 'Ya',
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          console.log(id)
+          axios.post("{{route('userUnitKerja.delete')}}", {          
+            "_token":"{{csrf_token()}}",
+            "id" : id
+          })
+          .then(function (response) {            
+            Swal.fire('Terhapus!', '', 'success').then(()=>{
+              window.location = "{{route('userUnitKerja.index')}}"
+            })
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    }
+</script>
+@endpush
+@endsection

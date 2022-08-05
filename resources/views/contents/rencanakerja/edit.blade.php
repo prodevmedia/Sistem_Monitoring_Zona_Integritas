@@ -4,47 +4,59 @@
 @section('content')
 <div class="container">
   @if (count($errors) > 0)
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <div class="d-flex justify-content-between">
-        <div class="d-flex justify-content-start">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-start">
         <ul style="color:white">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+          @foreach ($errors->all() as $error)
+          <li>{{ $error }}</li>
+          @endforeach
         </ul>
-        </div>        
       </div>
     </div>
+  </div>
   @endif
-  <div class="card">
-    <div class="card-body">
+  <div class="card col-sm-6">
+    <div class="card-body col-12">
       <div class="row">
-        <div class="col-6">
+        <div class="col-12">
           <form action="{{route('rencanakerja.update',$rencana->id)}}" method="post">
             @csrf
             @method("PUT")
-            <label for="">Area Perubahan</label><br>
+            <label for="">Periode</label><br>
             <div class="input-group">
-              <select name="area_perubahan" id="" class="form-control">
+              <select name="periode_id" id="select-periode" class="form-control">
                 <option disabled selected>Pilih</option>
-                @foreach ($area as $item)
-                    <option @if ($rencana->areaperubahan->id == $item->id)
-                        selected
-                    @endif value="{{$item->id}}">{{$item->nama_area_perubahan}}</option>
+                {{ $select = old('periode_id') ?? $rencana->periode_id }}
+                @foreach ($periode as $item)
+                <option value="{{$item->id}}" {{ $item->id == $select ? 'selected' : '' }}>{{$item->tahun}}</option>
                 @endforeach
               </select>
-            </div><br>          
-            <label for="">Target Waktu</label><br>
-            <div class="input-group">                    
-              <input type="datetime-local" value="{{\Carbon\Carbon::parse($rencana->tanggal_waktu)->format('Y-m-d')."T".\Carbon\Carbon::parse($rencana->tanggal_waktu)->format('h:m:s')}}" name="tanggal_waktu" id="" class="form-control">
             </div><br>
-            <label for="">Rencana Realisasi</label><br>
-            <input type="text" name="realisasi" id="" value="{{$rencana->realisasi}}" class="form-control"><br>
+
+            <label for="">Master Unit Kerja</label><br>
+            <div class="input-group">
+              <select name="master_unit_kerja_id" id="select-master-unit-kerja" class="form-control">
+                <option disabled selected>Pilih</option>
+                {{ $select = old('master_unit_kerja_id') ?? $rencana->master_unit_kerja_id }}
+                @foreach ($masterUnitKerja as $item)
+                <option value="{{$item->id}}" {{ $item->id == $select ? 'selected' : '' }}>{{$item->name}}</option>
+                @endforeach
+              </select>
+            </div><br>
+
+            <label for="">Target Waktu</label><br>
+            <div class="input-group">
+              <input type="date" value="{{\Carbon\Carbon::parse($rencana->tanggal_waktu)->format('Y-m-d')}}" name="tanggal_waktu" id="target-waktu"
+              class="form-control">
+            </div><br>
             <label for="">Rencana Aksi</label><br>
             <div class="input-group">
-              <textarea name="rencana_aksi" id="" cols="30" rows="10" class="form-control">{{$rencana->rencana_aksi}}</textarea>
+              <textarea name="rencana_aksi" id="" cols="30" rows="10"
+                class="form-control">{{$rencana->rencana_aksi}}</textarea>
             </div><br>
-            <button class="btn btn-success">Submit</button>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a href="{{route('rencanakerja.index')}}" class="btn btn-secondary">Cancel</a>
           </form>
         </div>
       </div>
@@ -52,8 +64,38 @@
   </div>
 </div>
 @push('scriptjs')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6-beta7/js/jQuery-provider.min.js" integrity="sha512-Do537NU11AoTRCD6WMWxbj9Yk7tynez4w6bNiZDvbAM1DopkCW5Isms86VXqHfjlwHoOKuGswSrsWxKrF7x4+A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6-beta7/js/tempus-dominus.min.js" integrity="sha512-1MtgrObV4IwMeselXJJXz4OkAd7107zzlykK2WRnWW75ItZvs5Wl1ESneWWCPB72Md5SAGjffvEtBcDkV5w8ZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6-beta7/js/jQuery-provider.min.js"
+  integrity="sha512-Do537NU11AoTRCD6WMWxbj9Yk7tynez4w6bNiZDvbAM1DopkCW5Isms86VXqHfjlwHoOKuGswSrsWxKrF7x4+A=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/6-beta7/js/tempus-dominus.min.js"
+  integrity="sha512-1MtgrObV4IwMeselXJJXz4OkAd7107zzlykK2WRnWW75ItZvs5Wl1ESneWWCPB72Md5SAGjffvEtBcDkV5w8ZQ=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  updatePeriode();
+  $('#select-periode').change(function () {
+      updatePeriode();
+    });
+
+    function updatePeriode() {
+      var periode_id = $('#select-periode').val();
+      
+      axios.post("{{route('periode.range')}}", {          
+            "_token":"{{csrf_token()}}",
+            "id" : periode_id
+          })
+          .then(function (response) {  
+            
+            if (response.data.status == 200) {
+              var start = response.data.data.start;
+              var end = response.data.data.end;
+
+              $('#target-waktu').attr('min', start);
+              $('#target-waktu').attr('max', end);
+            }
+          })
+    }
+</script>
+
 @endpush
 @endsection

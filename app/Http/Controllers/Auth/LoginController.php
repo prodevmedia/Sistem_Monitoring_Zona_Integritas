@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\UnitKerja;
 use App\Models\User;
+use App\Models\UserUnitKerja;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
@@ -61,7 +61,7 @@ class LoginController extends Controller
                     ? new JsonResponse([], 204) : redirect()->intended('/');
             }
         }
-        $cekUnitkerja = UnitKerja::where('email',$request->only('email'))->first();
+        $cekUnitkerja = UserUnitKerja::where('email',$request->only('email'))->first();
         if ($cekUnitkerja) {                        
             if (Auth::guard('unitkerja')->attempt(['email' => $request->email, 'password' => $request->password])) {                
                 if ($request->hasSession()) {

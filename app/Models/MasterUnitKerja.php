@@ -9,7 +9,7 @@ class MasterUnitKerja extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $fillable = ['name_unit_kerja'];
+    protected $fillable = ['name'];
 
     /**
      * Get the user that owns the Mast
@@ -18,8 +18,7 @@ class MasterUnitKerja extends Model
      */
     public function userunitkerja()
     {
-        // return $this->belongsTo(UnitKerja::class,'unit_kerja_id','id');
-        return $this->belongsTo(UnitKerja::class,'id');
+        return $this->hasMany(UserUnitKerja::class,'master_unit_kerja_id', 'id');
     }
 
     public function areaperubahan(){

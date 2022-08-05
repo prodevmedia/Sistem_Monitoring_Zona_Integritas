@@ -178,6 +178,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Mailjet\LaravelMailjet\MailjetServiceProvider::class,
         Mailjet\LaravelMailjet\MailjetMailServiceProvider::class,
+
+        Maatwebsite\Excel\ExcelServiceProvider::class,
     ],
 
     /*

@@ -84,7 +84,7 @@
                   $scoringUnitKerja = \DB::table('scoring_master_unit_kerjas')->where('file_id',$fileid)->where('unit_kerja_id',$id)->first();                  
               @endphp    
               <tr>
-                <td>{{$user->masterunitkerja->name_unit_kerja}}</td>   
+                <td>{{$user->masterunitkerja->name}}</td>   
                 <td>
                   <input type="number" style="font-size:15px; width: auto; !important; border:none; background-color:none;" min="0.00" step="0.01" name="masterunitkerja[bobot]" id="" value="{{$scoringUnitKerja->bobot}}">
                 </td>

@@ -34,9 +34,9 @@
                     @foreach ($masterunitkerja as $key => $item)
                         <tr>
                           <td>{{$key+1}}</td>
-                          <td>{{$item->name_unit_kerja}}</td>
+                          <td>{{$item->name}}</td>
                           <td>
-                            <a href="#edit" class="btn btn-warning btn-sm" data-id="{{$item->name_unit_kerja}} " onclick="edit('{{$item->name_unit_kerja}}',{{$item->id}})">Edit</a>
+                            <a href="#edit" class="btn btn-warning btn-sm" data-id="{{$item->name}} " onclick="edit('{{$item->name}}',{{$item->id}})">Edit</a>
                             <a href="#hapus"  data-toggle="modal" data-target="#hapus" onclick="hapus({{$item->id}})" class="btn-submit btn btn-danger btn-sm">Delete</a>
                           </td>
                         </tr>
@@ -120,14 +120,14 @@
       var name = $('[name="name_edit"]').val()
       axios.put(`${window.location.origin}/master-unit-kerja/${ids}`, {          
           "_token":"{{csrf_token()}}",
-          "name_unit_kerja" : name
+          "name" : name
         }).then((res)=>{
           if (res.data.status == 400) {            
             $('.error-add').html(res.data.message);
           }else{
             Swal.fire({
               icon:"success",
-              title: 'Berhasil di tambahkan'
+              title: 'Berhasil diubah'
             }).then(()=>{
               window.location.reload()
             })
@@ -139,7 +139,7 @@
       var name = $('[name="name"]').val()
       axios.post("{{route('masterunitkerja.store')}}", {          
           "_token":"{{csrf_token()}}",
-          "name_unit_kerja" : name
+          "name" : name
         }).then((res)=>{
           if (res.data.status == 400) {            
             $('.error-add').html(res.data.message);

@@ -58,7 +58,8 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama User</th>
+                  <th>Nama Unit</th>
+                  <th>Email Pengirim</th>
                   <th>File Upload</th>
                   <th>Tahun</th>
                   <th>Waktu Upload</th>
@@ -70,11 +71,12 @@
                         <tr>
                           <td>{{$key+1}}</td>
                           <td>{{$item->user->name}}</td>
+                          <td>{{$item->user->email}}</td>
                           <td>
                             {!!wordwrap($item->name_file,30,"<br>\n", false)!!}                             
                           </td>
                           <td>{{$item->points ? $item->points->tahun : null}}</td>
-                          <td>{{\Carbon\Carbon::parse($item->created_at)->format("D, d M Y")}}</td>
+                          <td>{{\Carbon\Carbon::parse($item->created_at)->format("D, d M")}}</td>
                           <td>
                             <a href="{{route('laporanevaluasi.show',[$item->user_id,$item->id])}}" class="btn btn-sm btn-success">Detail</a>
                             @php

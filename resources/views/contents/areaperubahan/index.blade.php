@@ -87,7 +87,7 @@
             <select name="unit_kerja" class="form-control">
               <option disabled selected>Pilih Unit Kerja</option>
               @foreach ($unit as $item)
-                  <option value="{{$item->id}}">{{$item->name_unit_kerja}}</option>
+                  <option value="{{$item->id}}">{{$item->name}}</option>
               @endforeach
             </select>
             <label for="">Nama Area Perubahan</label><br>
@@ -118,7 +118,7 @@
             <select name="unit_kerja"  id="editunitkerja"  class="form-control">
               <option disabled selected>Pilih Unit Kerja</option>
               @foreach ($unit as $item)
-                  <option value="{{$item->id}}">{{$item->name_unit_kerja}}</option>
+                  <option value="{{$item->id}}">{{$item->nanameme_unit_kerja}}</option>
               @endforeach
             </select>
           <label for="">Nama Area Perubahan</label><br>
